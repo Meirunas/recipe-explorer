@@ -3,22 +3,27 @@ import { ref, watch } from 'vue'
 import { searchMeals } from '@/services/api.js'
 
 export const useMealsStore = defineStore('meals', () => {
-  const query   = ref('')
-  const meals   = ref([])
+  const query = ref('')
+  const meals = ref([])
   const loading = ref(false)
-  const error   = ref(null)
+  const error = ref(null)
+  const selectedCategory = ref('') // ✅ add this line
 
   let timer = null
+
   watch(query, (q) => {
     clearTimeout(timer)
+
     if (!q.trim()) {
       meals.value = []
       loading.value = false
       error.value = null
       return
     }
+
     loading.value = true
     error.value = null
+
     timer = setTimeout(async () => {
       try {
         meals.value = await searchMeals(q)
@@ -30,5 +35,5 @@ export const useMealsStore = defineStore('meals', () => {
     }, 300)
   })
 
-  return { query, meals, loading, error }
+  return { query, meals, loading, error, selectedCategory }
 })

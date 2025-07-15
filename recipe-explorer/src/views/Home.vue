@@ -1,9 +1,8 @@
-<!-- src/views/Home.vue -->
 <template>
   <div class="px-4 py-6 space-y-6">
     <!-- Motivational Banner -->
     <div class="text-center text-green-600 font-semibold">
-      Healthy habits start at the plate, make yours count. 
+      Healthy habits start at the plate, make yours count.
     </div>
 
     <!-- Controls: Category dropdown + Search bar -->
@@ -63,86 +62,83 @@
 </template>
 
 <script setup>
-
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import debounce from 'lodash-es/debounce'
 import MealCard from '@/components/MealCard.vue'
 import {
   listCategories,
-  searchMeals,
   filterMeals
 } from '@/services/api.js'
+import { useMealsStore } from '@/stores/useMealsStore'
 
-// Local state
-const categories       = ref([])
-const selectedCategory = ref('')
-const searchQuery      = ref('')
-const meals            = ref([])
-const loading          = ref(false)
-const error            = ref(null)
+const mealsStore = useMealsStore()
 
-// Load categories once, then default to Vegan if available
+const categories = ref([])
+const selectedCategory = computed({
+  get: () => mealsStore.selectedCategory,
+  set: (val) => mealsStore.selectedCategory = val
+})
+
+
+// Use computed properties bound to the store
+const searchQuery = computed({
+  get: () => mealsStore.query,
+  set: (val) => mealsStore.query = val
+})
+const meals = computed(() => mealsStore.meals)
+const loading = computed(() => mealsStore.loading)
+const error = computed(() => mealsStore.error)
+
 onMounted(async () => {
   try {
     categories.value = await listCategories()
-    const veganCat = categories.value.find(c => c.strCategory.toLowerCase() === 'vegan')
-    if (veganCat) {
-      selectedCategory.value = veganCat.strCategory
-      await onCategoryChange()
+
+    // Only set default if meals not already loaded
+    if (!meals.value.length && !searchQuery.value) {
+      const veganCat = categories.value.find(c => c.strCategory.toLowerCase() === 'vegan')
+      if (veganCat) {
+        selectedCategory.value = veganCat.strCategory
+        await onCategoryChange()
+      }
     }
   } catch {
-    /* silently fail */
+    // silent fail
   }
 })
 
 // Fetch meals by category
 async function onCategoryChange() {
-  clearSearch()
+  searchQuery.value = ''
   if (!selectedCategory.value) {
-    meals.value = []
+    mealsStore.meals = []
     return
   }
-  loading.value = true
-  error.value   = null
+
+  mealsStore.loading = true
+  mealsStore.error = null
+
   try {
-    meals.value = await filterMeals('category', selectedCategory.value)
+    const data = await filterMeals('category', selectedCategory.value)
+    mealsStore.meals = data
   } catch {
-    error.value = 'Failed to load by category.'
+    mealsStore.error = 'Failed to load by category.'
   } finally {
-    loading.value = false
+    mealsStore.loading = false
   }
 }
 
-// Debounced search by name
-const doSearch = debounce(async () => {
-  clearCategory()
-  if (!searchQuery.value.trim()) {
-    meals.value = []
-    loading.value = false
-    return
-  }
-
-  loading.value = true
-  error.value   = null
-  try {
-    meals.value = await searchMeals(searchQuery.value)
-  } catch {
-    error.value = 'Search failed.'
-  } finally {
-    loading.value = false
-  }
+// Trigger store search logic
+const doSearch = debounce(() => {
+  selectedCategory.value = ''
+  mealsStore.query = searchQuery.value
 }, 300)
 
 function onSearch() {
-  loading.value = true
+  mealsStore.loading = true
   doSearch()
 }
-
-function clearSearch() {
-  searchQuery.value = ''
-}
-
-function clearCategory() {
-  selectedCategory.value = ''
-}
 </script>
+
+<style scoped>
+/* Tailwind handles all styling */
+</style>

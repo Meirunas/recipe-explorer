@@ -1,127 +1,94 @@
-<!-- src/components/Header.vue -->
 <template>
-  <header
-    class="fixed top-0 left-0 w-full bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-sm z-50"
-  >
-    <div class="max-w-screen-xl mx-auto px-6 py-4 flex items-center">
-      <!-- App title -->
-<router-link
-  to="/"
-  class="flex items-center space-x-3 text-2xl font-bold text-gray-800 dark:text-gray-100"
->
-  <img
-    :src="recipeBook"
-    alt="Recipe Explorer Logo"
-    class="h-10 w-10"
-  />
-  <span>Recipe Explorer</span>
-</router-link>
+  <header :class="['fixed top-0 left-0 w-full border-b shadow-sm z-50']">
+    <div class="relative max-w-screen-xl mx-auto px-6 py-4 flex items-center justify-between">
+      <!-- App title (left) -->
+      <router-link
+        to="/"
+        class="flex items-center space-x-3 text-2xl font-bold text-white"
+      >
+        <img :src="recipeBook" alt="Recipe Explorer Logo" class="h-10 w-10" />
+        <span>Recipe Explorer</span>
+      </router-link>
 
-
-      <!-- Inline nav on sm+ -->
-      <nav class="hidden sm:flex flex-1 justify-end space-x-8">
+      <!-- Centered nav (desktop only) -->
+      <nav
+        class="hidden sm:flex absolute left-1/2 -translate-x-1/2 space-x-8 items-center"
+      >
         <router-link
           to="/"
-          class="text-lg text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white transition"
-          :class="{
-            'text-gray-900 dark:text-white font-semibold':
-              route.name === 'Home',
-          }"
+          class="text-white font-medium hover:underline"
+          :class="{ underline: route.name === 'Home' }"
         >
           Home
         </router-link>
         <router-link
           to="/favorites"
-          class="text-lg text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white transition"
-          :class="{
-            'text-gray-900 dark:text-white font-semibold':
-              route.name === 'Favorites',
-          }"
+          class="text-white font-medium hover:underline"
+          :class="{ underline: route.name === 'Favorites' }"
         >
           Favorites
         </router-link>
       </nav>
 
-      <!-- Hamburger on mobile -->
+      <!-- Desktop Toggle Button -->
+      <button
+        @click="toggleColor"
+        class="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-white text-gray-800 text-sm font-medium rounded-full shadow hover:bg-gray-100 transition absolute right-[50px] top-4"
+      >
+        <span class="text-lg">{{ isLight ? '🌞' : '🌙' }}</span>
+      </button>
+
+      <!-- Mobile hamburger -->
       <button
         @click="mobileOpen = !mobileOpen"
-        class="sm:hidden ml-auto p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition"
-        aria-label="Toggle menu"
+        class="sm:hidden p-2 rounded bg-white text-gray-800"
       >
-        <svg
-          v-if="!mobileOpen"
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6 text-gray-800 dark:text-gray-100"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M4 6h16M4 12h16M4 18h16"
-          />
-        </svg>
-        <svg
-          v-else
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6 text-gray-800 dark:text-gray-100"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M6 18L18 6M6 6l12 12"
-          />
-        </svg>
+        ☰
       </button>
     </div>
 
-    <!-- Mobile menu -->
+    <!-- Mobile nav -->
     <div
       v-if="mobileOpen"
-      class="sm:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700"
+      class="sm:hidden px-6 py-4 bg-white text-gray-800 space-y-3"
     >
-      <nav class="flex flex-col px-6 py-4 space-y-2">
-        <router-link
-          to="/"
-          class="block text-lg text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white transition px-2 py-1 rounded"
-          :class="{
-            'bg-gray-100 dark:bg-gray-800 font-semibold': route.name === 'Home',
-          }"
-          @click="mobileOpen = false"
-        >
-          Home
-        </router-link>
-        <router-link
-          to="/favorites"
-          class="block text-lg text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white transition px-2 py-1 rounded"
-          :class="{
-            'bg-gray-100 dark:bg-gray-800 font-semibold':
-              route.name === 'Favorites',
-          }"
-          @click="mobileOpen = false"
-        >
-          Favorites
-        </router-link>
-      </nav>
+      <router-link
+        to="/"
+        class="block font-medium"
+        @click="mobileOpen = false"
+      >
+        Home
+      </router-link>
+      <router-link
+        to="/favorites"
+        class="block font-medium"
+        @click="mobileOpen = false"
+      >
+        Favorites
+      </router-link>
+
+      <!-- Mobile Toggle Button -->
+      <button
+        @click="toggleColor"
+        class="w-full flex items-center justify-center gap-2 mt-3 px-3 py-2 bg-gray-200 text-gray-800 text-sm font-medium rounded-full hover:bg-gray-300 transition"
+      >
+        <span class="text-lg">{{ isLight ? '🌞' : '🌙' }}</span>
+      </button>
     </div>
   </header>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { useRoute } from "vue-router";
+import { ref } from 'vue'
+import { useRoute } from 'vue-router'
+import { useAppColor } from '@/composables/useAppColor'
+import recipeBook from '@/assets/recipe-book.png'
 
-const route = useRoute();
-const mobileOpen = ref(false);
-
-// import your asset — Vite will resolve it to a URL
-import recipeBook from "@/assets/recipe-book.png";
+const { isLight, toggleColor } = useAppColor()
+const route = useRoute()
+const mobileOpen = ref(false)
 </script>
 
 <style scoped>
-/* nothing else needed—Tailwind handles responsiveness */
+/* Tailwind handles all styling */
 </style>

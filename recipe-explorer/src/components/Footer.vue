@@ -1,13 +1,13 @@
 <!-- src/components/Footer.vue -->
 <template>
-  <footer class="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
+  <footer >
     <div
-      class="max-w-screen-xl mx-auto px-6 py-4 flex flex-col md:flex-row items-center md:justify-between space-y-2 md:space-y-0"
+      class="max-w-screen-xl mx-auto px-6 py-4 flex flex-col md:flex-row items-center md:justify-between space-y-2 md:space-y-0 text-white"
     >
-      <p class="text-sm text-gray-600 dark:text-gray-400">
+      <p class="text-sm">
         © 2025 Recipe Explorer. All rights reserved.
       </p>
-      <p class="text-sm text-gray-600 dark:text-gray-400">
+      <p class="text-sm">
         Powered by
         <a
           href="https://www.themealdb.com"

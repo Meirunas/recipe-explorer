@@ -3,7 +3,7 @@
   <div class="px-4 py-6 space-y-6">
     <!-- Motivational Banner -->
     <div class="text-center text-green-600 font-semibold">
-      Healthy habits start at the plate—make yours count. 
+      Healthy habits start at the plate, make yours count. 
     </div>
 
     <!-- Controls: Category dropdown + Search bar -->
@@ -63,6 +63,7 @@
 </template>
 
 <script setup>
+
 import { ref, onMounted } from 'vue'
 import debounce from 'lodash-es/debounce'
 import MealCard from '@/components/MealCard.vue'

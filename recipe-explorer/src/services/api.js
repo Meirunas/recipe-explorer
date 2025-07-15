@@ -5,6 +5,7 @@ const client = axios.create({
   timeout: 5000,
 })
 
+
 //Start - show categories and display after chosen
 export async function listCategories() {
   const { data } = await client.get('/categories.php')

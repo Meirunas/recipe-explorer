@@ -1,6 +1,11 @@
 <!-- src/views/Home.vue -->
 <template>
   <div class="px-4 py-6 space-y-6">
+    <!-- Motivational Banner -->
+    <div class="text-center text-green-600 font-semibold">
+      Healthy habits start at the plate—make yours count. 
+    </div>
+
     <!-- Controls: Category dropdown + Search bar -->
     <div class="flex flex-col md:flex-row md:items-center md:space-x-4 space-y-4 md:space-y-0">
       <!-- Category Filter -->
@@ -12,7 +17,7 @@
           @change="onCategoryChange"
           class="px-3 py-2 border rounded focus:ring transition"
         >
-          <option value="">Choose</option>
+          <option value="">None</option>
           <option
             v-for="cat in categories"
             :key="cat.idCategory"
@@ -75,10 +80,15 @@ const meals            = ref([])
 const loading          = ref(false)
 const error            = ref(null)
 
-// Load categories once
+// Load categories once, then default to Vegan if available
 onMounted(async () => {
   try {
     categories.value = await listCategories()
+    const veganCat = categories.value.find(c => c.strCategory.toLowerCase() === 'vegan')
+    if (veganCat) {
+      selectedCategory.value = veganCat.strCategory
+      await onCategoryChange()
+    }
   } catch {
     /* silently fail */
   }

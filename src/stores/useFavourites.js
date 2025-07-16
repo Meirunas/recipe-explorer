@@ -27,7 +27,7 @@ export const useFavourites = defineStore("favourites", () => {
     return favourites.value.some((m) => m.idMeal === mealId);
   }
 
-  // ✅ Save to localStorage
+  // Save to localStorage
   watch(
     favourites,
     (newVal) => {

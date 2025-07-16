@@ -1,7 +1,6 @@
-// src/composables/useAppColor.js
 import { ref, watch, onMounted } from 'vue';
 
-const isLight = ref(true); // true = light gray, false = dark
+const isLight = ref(true); // true = light white, false = dark
 
 export function useAppColor() {
   function toggleColor() {

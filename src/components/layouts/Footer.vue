@@ -23,9 +23,7 @@
 </template>
 
 <script setup>
-// no script needed
 </script>
 
 <style scoped>
-/* all styling via Tailwind utilities */
 </style>

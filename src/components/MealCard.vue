@@ -13,7 +13,7 @@
         {{ meal.strMeal }}
       </h3>
 
-      <!-- Bottom Controls: Button + Favorite -->
+      <!-- Bottom Controls: Button + favourite -->
       <div class="flex items-center justify-between mt-3">
         <router-link
           :to="`/meal/${meal.idMeal}`"
@@ -26,7 +26,7 @@
         <button
           @click="toggle"
           class="text-xl transition hover:scale-110"
-          title="Toggle Favorite"
+          title="Toggle favourite"
         >
           <span v-if="isFav">⭐</span>
           <span v-else>☆</span>
@@ -38,16 +38,16 @@
 
 <script setup>
 import { computed } from 'vue'
-import { useFavoritesStore } from '@/stores/useFavoritesStore'
+import { useFavourites } from '@/stores/useFavourites'
 
 const props = defineProps({ meal: Object })
-const favorites = useFavoritesStore()
+const favourites = useFavourites()
 
 const isFav = computed(() =>
-  favorites.isFavorited(props.meal.idMeal)
+  favourites.isFavourited(props.meal.idMeal)
 )
 
 function toggle() {
-  favorites.toggleFavorite(props.meal)
+  favourites.toggleFavourite(props.meal)
 }
 </script>

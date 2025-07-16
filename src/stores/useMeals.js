@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { ref, watch } from 'vue'
 import { searchMeals } from '@/services/api.js'
 
-export const useMealsStore = defineStore('meals', () => {
+export const useMeals = defineStore('meals', () => {
   const query = ref('')
   const meals = ref([])
   const loading = ref(false)

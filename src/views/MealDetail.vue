@@ -25,7 +25,7 @@
         {{ store.meal.strMeal }}
       </h1>
 
-      <!-- Image with Favorite Toggle -->
+      <!-- Image with favourite Toggle -->
       <div class="relative">
         <img
           :src="store.meal.strMealThumb"
@@ -33,11 +33,11 @@
           class="w-full rounded-lg shadow"
         />
 
-        <!-- Favorite Toggle Button -->
+        <!-- favourite Toggle Button -->
         <button
           @click="toggle"
           class="absolute top-3 right-3 z-10 bg-white bg-opacity-80 rounded-full px-3 py-1 text-xl transition hover:scale-110 shadow select-none"
-          title="Toggle Favorite"
+          title="Toggle favourite"
         >
           <span :class="[isFav ? 'text-yellow-400' : 'text-gray-400']">
             {{ isFav ? "⭐" : "☆" }}
@@ -73,25 +73,25 @@
 <script setup>
 import { onMounted, computed } from "vue";
 import { useRoute } from "vue-router";
-import { useMealDetailStore } from "@/stores/mealDetail";
-import { useFavoritesStore } from "@/stores/useFavoritesStore";
+import { useMealDetailStore } from "@/stores/useMealDetail";
+import { useFavourites } from "@/stores/useFavourites";
 
 const route = useRoute();
 const store = useMealDetailStore();
-const favorites = useFavoritesStore();
+const favourites = useFavourites();
 
 onMounted(() => {
   store.fetchMeal(route.params.id);
 });
 
-// ⭐ Favorite logic
+// ⭐ favourite logic
 const isFav = computed(() =>
-  store.meal ? favorites.isFavorited(store.meal.idMeal) : false
+  store.meal ? favourites.isFavourited(store.meal.idMeal) : false
 );
 
 function toggle() {
   if (store.meal) {
-    favorites.toggleFavorite(store.meal);
+    favourites.toggleFavourite(store.meal);
   }
 }
 </script>

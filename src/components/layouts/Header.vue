@@ -1,7 +1,6 @@
 <template>
   <header :class="['fixed top-0 left-0 w-full shadow-sm z-50']">
     <div class="relative max-w-screen-xl mx-auto px-6 py-4 flex items-center justify-between">
-      <!-- App title (left) -->
       <router-link
         to="/"
         class="flex items-center space-x-3 text-2xl font-bold "
@@ -22,11 +21,11 @@
           Home
         </router-link>
         <router-link
-          to="/favorites"
+          to="/favourites"
           class="font-medium hover:underline"
-          :class="{ underline: route.name === 'Favorites' }"
+          :class="{ underline: route.name === 'favourites' }"
         >
-          Favorites
+          Favourites
         </router-link>
       </nav>
 
@@ -60,11 +59,11 @@
         Home
       </router-link>
       <router-link
-        to="/favorites"
+        to="/favourites"
         class="block font-medium"
         @click="mobileOpen = false"
       >
-        Favorites
+        Favourites
       </router-link>
 
       <!-- Mobile Toggle Button -->
@@ -82,7 +81,7 @@
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useAppColor } from '@/composables/useAppColor'
-import recipeBook from '@/assets/recipe-book.png'
+import recipeBook from '/recipe-book.png'
 
 const { isLight, toggleColor } = useAppColor()
 const route = useRoute()
@@ -90,5 +89,4 @@ const mobileOpen = ref(false)
 </script>
 
 <style scoped>
-/* Tailwind handles all styling */
 </style>

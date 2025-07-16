@@ -69,9 +69,9 @@ import {
   listCategories,
   filterMeals
 } from '@/services/api.js'
-import { useMealsStore } from '@/stores/useMealsStore'
+import { useMeals } from '@/stores/useMeals'
 
-const mealsStore = useMealsStore()
+const mealsStore = useMeals()
 
 const categories = ref([])
 const selectedCategory = computed({

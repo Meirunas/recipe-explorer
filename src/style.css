@@ -1,7 +1,6 @@
 @import "tailwindcss";
-@tailwind utilities;
 
-/* Global themes using Tailwind utility classes */
+/* Global themes */
 .theme-light header,
 .theme-light footer {
   color: black;

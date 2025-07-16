@@ -1,11 +1,10 @@
-<!-- src/components/Footer.vue -->
 <template>
-  <footer >
+  <footer>
     <div
       class="max-w-screen-xl mx-auto px-6 py-4 flex flex-col md:flex-row items-center md:justify-between space-y-2 md:space-y-0"
     >
       <p class="text-sm">
-        © 2025 Recipe Explorer. All rights reserved.
+        © {{ new Date().getFullYear() }} Recipe Explorer. All rights reserved.
       </p>
       <p class="text-sm">
         Powered by
@@ -22,8 +21,6 @@
   </footer>
 </template>
 
-<script setup>
-</script>
+<script setup></script>
 
-<style scoped>
-</style>
+<style scoped></style>

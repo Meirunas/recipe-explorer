@@ -1,16 +1,16 @@
 <template>
-  <div class="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+  <div
+    class="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+  >
     <Header />
     <main class="flex-grow pt-[64px]">
       <router-view />
     </main>
-    <Footer class="mt-auto"/>
+    <Footer class="mt-auto" />
   </div>
 </template>
 
-
 <script setup>
-import Header from '@/components/layouts/Header.vue'
-import Footer from '@/components/layouts/Footer.vue'
-
+import Header from "@/components/layouts/Header.vue";
+import Footer from "@/components/layouts/Footer.vue";
 </script>

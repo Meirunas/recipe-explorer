@@ -1,39 +1,39 @@
-import { defineStore } from 'pinia'
-import { ref, watch } from 'vue'
-import { searchMeals } from '@/services/api.js'
+import { defineStore } from "pinia";
+import { ref, watch } from "vue";
+import { searchMeals } from "@/services/api.js";
 
-export const useMeals = defineStore('meals', () => {
-  const query = ref('')
-  const meals = ref([])
-  const loading = ref(false)
-  const error = ref(null)
-  const selectedCategory = ref('') // ✅ add this line
+export const useMeals = defineStore("meals", () => {
+  const query = ref("");
+  const meals = ref([]);
+  const loading = ref(false);
+  const error = ref(null);
+  const selectedCategory = ref("");
 
-  let timer = null
+  let timer = null;
 
   watch(query, (q) => {
-    clearTimeout(timer)
+    clearTimeout(timer);
 
     if (!q.trim()) {
-      meals.value = []
-      loading.value = false
-      error.value = null
-      return
+      meals.value = [];
+      loading.value = false;
+      error.value = null;
+      return;
     }
 
-    loading.value = true
-    error.value = null
+    loading.value = true;
+    error.value = null;
 
     timer = setTimeout(async () => {
       try {
-        meals.value = await searchMeals(q)
+        meals.value = await searchMeals(q);
       } catch {
-        error.value = 'Failed to fetch meals.'
+        error.value = "Failed to fetch meals.";
       } finally {
-        loading.value = false
+        loading.value = false;
       }
-    }, 300)
-  })
+    }, 300);
+  });
 
-  return { query, meals, loading, error, selectedCategory }
-})
+  return { query, meals, loading, error, selectedCategory };
+});

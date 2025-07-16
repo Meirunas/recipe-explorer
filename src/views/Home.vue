@@ -6,7 +6,9 @@
     </div>
 
     <!-- Controls: Category dropdown + Search bar -->
-    <div class="flex flex-col md:flex-row md:items-center md:space-x-4 space-y-4 md:space-y-0">
+    <div
+      class="flex flex-col md:flex-row md:items-center md:space-x-4 space-y-4 md:space-y-0"
+    >
       <!-- Category Filter -->
       <div class="flex items-center space-x-2">
         <label for="category" class="font-semibold">Category:</label>
@@ -40,105 +42,119 @@
     </div>
 
     <!-- Status Messages -->
-    <div v-if="loading" class="text-center py-8 text-gray-500 dark:text-gray-400">
+    <div
+      v-if="loading"
+      class="text-center py-8 text-gray-500 dark:text-gray-400"
+    >
       Loading…
     </div>
     <div v-else-if="error" class="text-center py-8 text-red-500">
       {{ error }}
     </div>
-    <div v-else-if="!meals.length" class="text-center py-8 text-gray-500 dark:text-gray-400">
+    <div
+      v-else-if="!meals.length && searchQuery"
+      class="text-center py-8 text-gray-500 dark:text-gray-400"
+    >
       No meals found.
+    </div>
+    <div
+      v-else-if="!meals.length && !searchQuery"
+      class="text-center py-8 text-gray-400 dark:text-gray-500"
+    >
+      Start by selecting a category or searching for a meal.
     </div>
 
     <!-- Results Grid -->
     <div v-else class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-      <MealCard
-        v-for="meal in meals"
-        :key="meal.idMeal"
-        :meal="meal"
-      />
+      <MealCard v-for="meal in meals" :key="meal.idMeal" :meal="meal" />
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
-import debounce from 'lodash-es/debounce'
-import MealCard from '@/components/MealCard.vue'
-import {
-  listCategories,
-  filterMeals
-} from '@/services/api.js'
-import { useMeals } from '@/stores/useMeals'
+import { ref, onMounted, computed } from "vue";
+import debounce from "lodash-es/debounce";
+import MealCard from "@/components/MealCard.vue";
+import { listCategories, filterMeals } from "@/services/api.js";
+import { useMeals } from "@/stores/useMeals";
 
-const mealsStore = useMeals()
+const mealsStore = useMeals();
 
-const categories = ref([])
+const categories = ref([]);
 const selectedCategory = computed({
   get: () => mealsStore.selectedCategory,
-  set: (val) => mealsStore.selectedCategory = val
-})
+  set: (val) => (mealsStore.selectedCategory = val),
+});
 
-
-// Use computed properties bound to the store
 const searchQuery = computed({
   get: () => mealsStore.query,
-  set: (val) => mealsStore.query = val
-})
-const meals = computed(() => mealsStore.meals)
-const loading = computed(() => mealsStore.loading)
-const error = computed(() => mealsStore.error)
+  set: (val) => (mealsStore.query = val),
+});
+const meals = computed(() => mealsStore.meals);
+const loading = computed(() => mealsStore.loading);
+const error = computed(() => mealsStore.error);
 
 onMounted(async () => {
   try {
-    categories.value = await listCategories()
+    categories.value = await listCategories();
 
     // Only set default if meals not already loaded
     if (!meals.value.length && !searchQuery.value) {
-      const veganCat = categories.value.find(c => c.strCategory.toLowerCase() === 'vegan')
+      const veganCat = categories.value.find(
+        (c) => c.strCategory.toLowerCase() === "vegan"
+      );
       if (veganCat) {
-        selectedCategory.value = veganCat.strCategory
-        await onCategoryChange()
+        selectedCategory.value = veganCat.strCategory;
+        await onCategoryChange();
       }
     }
   } catch {
     // silent fail
   }
-})
+});
 
-// Fetch meals by category
 async function onCategoryChange() {
-  searchQuery.value = ''
+  searchQuery.value = "";
   if (!selectedCategory.value) {
-    mealsStore.meals = []
-    return
+    mealsStore.meals = [];
+    return;
   }
 
-  mealsStore.loading = true
-  mealsStore.error = null
+  mealsStore.loading = true;
+  mealsStore.error = null;
 
   try {
-    const data = await filterMeals('category', selectedCategory.value)
-    mealsStore.meals = data
+    const data = await filterMeals("category", selectedCategory.value);
+    mealsStore.meals = data;
   } catch {
-    mealsStore.error = 'Failed to load by category.'
+    mealsStore.error = "Failed to load by category.";
   } finally {
-    mealsStore.loading = false
+    mealsStore.loading = false;
   }
 }
 
-// Trigger store search logic
+// Debounced search handler
 const doSearch = debounce(() => {
-  selectedCategory.value = ''
-  mealsStore.query = searchQuery.value
-}, 300)
+  const trimmed = searchQuery.value.trim();
+  if (!trimmed) return;
+
+  selectedCategory.value = "";
+  mealsStore.query = trimmed;
+}, 300);
 
 function onSearch() {
-  mealsStore.loading = true
-  doSearch()
+  const trimmed = searchQuery.value.trim();
+
+  if (!trimmed) {
+    mealsStore.query = "";
+    mealsStore.meals = [];
+    mealsStore.loading = false;
+    return;
+  }
+
+  mealsStore.loading = true;
+  doSearch();
 }
 </script>
 
-<style scoped>
-/* Tailwind handles all styling */
-</style>
+<style scoped></style>

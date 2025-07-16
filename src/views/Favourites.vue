@@ -2,7 +2,10 @@
   <div class="px-4 py-6 space-y-6">
     <h1 class="text-3xl font-bold text-center">Favourites</h1>
 
-    <div v-if="favourites.favourites.length === 0" class="text-center text-gray-500">
+    <div
+      v-if="favourites.favourites.length === 0"
+      class="text-center text-gray-500"
+    >
       You haven't added any favourite meals yet.
     </div>
 
@@ -17,9 +20,8 @@
 </template>
 
 <script setup>
-import { useFavourites } from '@/stores/useFavourites'
-import MealCard from '@/components/MealCard.vue'
+import { useFavourites } from "@/stores/useFavourites";
+import MealCard from "@/components/MealCard.vue";
 
-const favourites = useFavourites()
+const favourites = useFavourites();
 </script>
-

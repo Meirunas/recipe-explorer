@@ -1,5 +1,7 @@
 <template>
-  <div class="bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition duration-300 overflow-hidden">
+  <div
+    class="bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition duration-300 overflow-hidden"
+  >
     <!-- Meal Image -->
     <img
       :src="meal.strMealThumb"
@@ -37,17 +39,15 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import { useFavourites } from '@/stores/useFavourites'
+import { computed } from "vue";
+import { useFavourites } from "@/stores/useFavourites";
 
-const props = defineProps({ meal: Object })
-const favourites = useFavourites()
+const props = defineProps({ meal: Object });
+const favourites = useFavourites();
 
-const isFav = computed(() =>
-  favourites.isFavourited(props.meal.idMeal)
-)
+const isFav = computed(() => favourites.isFavourited(props.meal.idMeal));
 
 function toggle() {
-  favourites.toggleFavourite(props.meal)
+  favourites.toggleFavourite(props.meal);
 }
 </script>

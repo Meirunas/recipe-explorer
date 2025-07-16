@@ -4,7 +4,7 @@
       <!-- App title (left) -->
       <router-link
         to="/"
-        class="flex items-center space-x-3 text-2xl font-bold text-white"
+        class="flex items-center space-x-3 text-2xl font-bold "
       >
         <img :src="recipeBook" alt="Recipe Explorer Logo" class="h-10 w-10" />
         <span>Recipe Explorer</span>
@@ -16,14 +16,14 @@
       >
         <router-link
           to="/"
-          class="text-white font-medium hover:underline"
+          class=" font-medium hover:underline"
           :class="{ underline: route.name === 'Home' }"
         >
           Home
         </router-link>
         <router-link
           to="/favorites"
-          class="text-white font-medium hover:underline"
+          class="font-medium hover:underline"
           :class="{ underline: route.name === 'Favorites' }"
         >
           Favorites

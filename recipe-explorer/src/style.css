@@ -4,10 +4,12 @@
 /* Global themes using Tailwind utility classes */
 .theme-light header,
 .theme-light footer {
-  @apply bg-gray-400 text-gray-700;
+  color: black;
+  background-color: white;
 }
 
 .theme-dark header,
 .theme-dark footer {
-  @apply bg-zinc-700 text-zinc-100;
+  color: white;
+  background-color: #1e2939;
 }

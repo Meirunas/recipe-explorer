@@ -7,12 +7,12 @@ Search, filter, and bookmark your favorite recipes in a clean, responsive Vue 3 
 
 ## 🚀 Features
 
-- 🔍 **Search meals** by name with debounce optimization
-- 🗂️ **Filter meals** by category (e.g., Vegan, Seafood, etc.)
-- ⭐ **Bookmark favorites** using Pinia + localStorage
-- 🌙 **Light/Dark mode toggle**
-- ⚡ **Fast & responsive UI** built with Tailwind CSS
-- 🔄 **API integration** with [TheMealDB](https://www.themealdb.com/)
+- 🔍 **Search meals by name** with debounce optimisation
+- 🗂️ **Filter by category** (e.g. Vegan, Seafood, etc.)
+- ⭐ **Bookmark favorite meals** using Pinia + localStorage
+- 🌙 **Toggle light/dark mode** for better visual comfort
+- ⚡ **Fast & responsive UI** styled with Tailwind CSS
+- 🔄 **Live recipe data** via [TheMealDB API](https://www.themealdb.com/)
 
 ---
 
@@ -29,7 +29,7 @@ Search, filter, and bookmark your favorite recipes in a clean, responsive Vue 3 
 
 ## 📸 Site
 
-> [Live Site on Vercel](https://your-recipe-explorer.vercel.app)
+> [Live Site on Vercel](https://recipe-explorer-app.vercel.app)
 
 ---
 

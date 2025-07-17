@@ -32,14 +32,6 @@
         </router-link>
       </nav>
 
-      <!-- Desktop Toggle Button -->
-      <button
-        @click="toggleColor"
-        class="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-white text-gray-800 text-sm font-medium rounded-full shadow hover:bg-gray-100 transition absolute right-[50px] top-4"
-      >
-        <span class="text-lg">{{ isLight ? "🌞" : "🌙" }}</span>
-      </button>
-
       <!-- Mobile hamburger -->
       <button
         @click="mobileOpen = !mobileOpen"
@@ -64,14 +56,6 @@
       >
         Favourites
       </router-link>
-
-      <!-- Mobile Toggle Button -->
-      <button
-        @click="toggleColor"
-        class="w-full flex items-center justify-center gap-2 mt-3 px-3 py-2 bg-gray-200 text-gray-800 text-sm font-medium rounded-full hover:bg-gray-300 transition"
-      >
-        <span class="text-lg">{{ isLight ? "🌞" : "🌙" }}</span>
-      </button>
     </div>
   </header>
 </template>
@@ -79,10 +63,8 @@
 <script setup>
 import { ref } from "vue";
 import { useRoute } from "vue-router";
-import { useAppColor } from "@/composables/useAppColor";
 import recipeBook from "/recipe-book.png";
 
-const { isLight, toggleColor } = useAppColor();
 const route = useRoute();
 const mobileOpen = ref(false);
 </script>

@@ -1,37 +1,24 @@
+<!-- MealCard.vue -->
 <template>
-  <div
-    class="bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition duration-300 overflow-hidden"
-  >
-    <!-- Meal Image -->
-    <img
-      :src="meal.strMealThumb"
-      :alt="meal.strMeal"
-      class="w-full h-40 object-cover"
-    />
+  <div class="relative group min-h-[250px]">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow transition overflow-hidden">
+      <img :src="meal.strMealThumb" :alt="meal.strMeal" class="w-full h-40 object-cover" />
+      <div class="p-4 space-y-2">
+        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">
+          {{ meal.strMeal }}
+        </h3>
 
-    <!-- Card Content -->
-    <div class="p-4">
-      <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">
-        {{ meal.strMeal }}
-      </h3>
-
-      <!-- Bottom Controls: Button + favourite -->
-      <div class="flex items-center justify-between mt-3">
-        <router-link
-          :to="`/meal/${meal.idMeal}`"
-          class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded"
-        >
-          View Details
-        </router-link>
-
-        <!-- Toggle Star Button -->
+        <!-- View More -->
         <button
-          @click="toggle"
-          class="text-xl transition hover:scale-110"
-          title="Toggle favourite"
+          @mouseenter="$emit('preview', meal.idMeal)"
+          @mouseleave="$emit('leave')"
+          class="px-3 py-1 bg-green-500 hover:bg-green-600 text-white rounded text-sm"
         >
-          <span v-if="isFav">⭐</span>
-          <span v-else>☆</span>
+          View more
+        </button>
+
+        <button @click="toggleFav" class="text-xl hover:scale-110 block">
+          {{ isFav ? '⭐' : '☆' }}
         </button>
       </div>
     </div>
@@ -39,15 +26,13 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
-import { useFavourites } from "@/stores/useFavourites";
+import { computed } from 'vue'
+import { useFavourites } from '@/stores/useFavourites'
 
-const props = defineProps({ meal: Object });
-const favourites = useFavourites();
+const props = defineProps({ meal: Object })
+const emit = defineEmits(['preview', 'leave'])
 
-const isFav = computed(() => favourites.isFavourited(props.meal.idMeal));
-
-function toggle() {
-  favourites.toggleFavourite(props.meal);
-}
+const favourites = useFavourites()
+const isFav = computed(() => favourites.isFavourited(props.meal.idMeal))
+const toggleFav = () => favourites.toggleFavourite(props.meal)
 </script>

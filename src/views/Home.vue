@@ -5,11 +5,10 @@
       Healthy habits start at the plate, make yours count.
     </div>
 
-    <!-- Controls: Category dropdown + Search bar -->
+    <!-- Controls -->
     <div
       class="flex flex-col md:flex-row md:items-center md:space-x-4 space-y-4 md:space-y-0"
     >
-      <!-- Category Filter -->
       <div class="flex items-center space-x-2">
         <label for="category" class="font-semibold">Category:</label>
         <select
@@ -29,7 +28,6 @@
         </select>
       </div>
 
-      <!-- Search Input -->
       <div class="flex-1">
         <input
           v-model="searchQuery"
@@ -41,7 +39,7 @@
       </div>
     </div>
 
-    <!-- Status Messages -->
+    <!-- Messages -->
     <div
       v-if="loading"
       class="text-center py-8 text-gray-500 dark:text-gray-400"
@@ -64,23 +62,38 @@
       Start by selecting a category or searching for a meal.
     </div>
 
-    <!-- Results Grid -->
-    <div v-else class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-      <MealCard v-for="meal in meals" :key="meal.idMeal" :meal="meal" />
+    <!-- Grid + Preview -->
+    <div class="relative">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        <MealCard
+          v-for="meal in meals"
+          :key="meal.idMeal"
+          :meal="meal"
+          @preview="preview.fetchMealPreview(meal.idMeal)"
+          @leave="preview.clearMealPreviewWithDelay"
+        />
+      </div>
+      <MealHoverDetail v-if="preview.meal" />
     </div>
   </div>
 </template>
 
 <script setup>
+import { useMealPreviewStore } from "@/stores/useMealPreview";
+const preview = useMealPreviewStore();
 import { ref, onMounted, computed } from "vue";
 import debounce from "lodash-es/debounce";
+import { storeToRefs } from "pinia";
 import MealCard from "@/components/MealCard.vue";
+import MealHoverDetail from "@/components/MealHoverDetail.vue";
 import { listCategories, filterMeals } from "@/services/api.js";
 import { useMeals } from "@/stores/useMeals";
 
-const mealsStore = useMeals();
+const { meal } = storeToRefs(preview);
 
+const mealsStore = useMeals();
 const categories = ref([]);
+
 const selectedCategory = computed({
   get: () => mealsStore.selectedCategory,
   set: (val) => (mealsStore.selectedCategory = val),
@@ -90,6 +103,7 @@ const searchQuery = computed({
   get: () => mealsStore.query,
   set: (val) => (mealsStore.query = val),
 });
+
 const meals = computed(() => mealsStore.meals);
 const loading = computed(() => mealsStore.loading);
 const error = computed(() => mealsStore.error);
@@ -97,8 +111,6 @@ const error = computed(() => mealsStore.error);
 onMounted(async () => {
   try {
     categories.value = await listCategories();
-
-    // Only set default if meals not already loaded
     if (!meals.value.length && !searchQuery.value) {
       const veganCat = categories.value.find(
         (c) => c.strCategory.toLowerCase() === "vegan"
@@ -125,7 +137,6 @@ async function onCategoryChange() {
   mealsStore.error = null;
 
   try {
-    //  throw new Error("Simulated category fetch failure");
     const data = await filterMeals("category", selectedCategory.value);
     mealsStore.meals = data;
   } catch {
@@ -135,7 +146,6 @@ async function onCategoryChange() {
   }
 }
 
-// Debounced search handler
 const doSearch = debounce(() => {
   const trimmed = searchQuery.value.trim();
   if (!trimmed) return;
@@ -146,7 +156,6 @@ const doSearch = debounce(() => {
 
 function onSearch() {
   const trimmed = searchQuery.value.trim();
-
   if (!trimmed) {
     mealsStore.query = "";
     mealsStore.meals = [];
@@ -158,5 +167,3 @@ function onSearch() {
   doSearch();
 }
 </script>
-
-<style scoped></style>

@@ -34,7 +34,7 @@
           @input="onSearch"
           type="text"
           placeholder="Search meals..."
-          class="w-full px-4 py-2 border rounded focus:ring transition"
+          class="w-full px-4 py-2 border rounded focus:ring transition "
         />
       </div>
     </div>
@@ -73,7 +73,9 @@
           @leave="preview.clearMealPreviewWithDelay"
         />
       </div>
-      <MealHoverDetail v-if="preview.meal" />
+      <transition name="fade-slide">
+  <MealHoverDetail v-if="preview.meal" />
+</transition>
     </div>
   </div>
 </template>

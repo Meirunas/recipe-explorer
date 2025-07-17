@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col min-h-screen bg-gray-50  text-gray-900 ">
+  <div class="flex flex-col min-h-screen bg-gray-50  text-gray-900">
     <Header />
 
     <!-- Main grows, pushes footer down -->

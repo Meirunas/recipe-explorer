@@ -1,5 +1,5 @@
 <template>
-  <footer class="w-full shadow-sm z-50 bg-white dark:bg-gray-800">
+  <footer class="shadow-sm">
     <div
       class="max-w-screen-xl mx-auto px-6 py-4 flex flex-col md:flex-row items-center md:justify-between space-y-2 md:space-y-0"
     >

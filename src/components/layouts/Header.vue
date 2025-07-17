@@ -1,5 +1,5 @@
 <template>
-  <header :class="['fixed top-0 left-0 w-full shadow-sm z-50']">
+  <header :class="['w-full shadow-sm z-50']">
     <!-- Remove "max-w-screen-xl" below? -->
     <div
       class="relative max-w-screen-xl mx-auto px-6 py-4 flex items-center justify-between"

@@ -108,8 +108,9 @@ onMounted(async () => {
         await onCategoryChange();
       }
     }
-  } catch {
-    // silent fail
+  } catch (err) {
+    console.error("Error loading categories:", err);
+    mealsStore.error = "Unable to load meal categories. Please try again.";
   }
 });
 
@@ -124,6 +125,7 @@ async function onCategoryChange() {
   mealsStore.error = null;
 
   try {
+    //  throw new Error("Simulated category fetch failure");
     const data = await filterMeals("category", selectedCategory.value);
     mealsStore.meals = data;
   } catch {

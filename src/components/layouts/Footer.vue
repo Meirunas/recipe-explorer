@@ -12,7 +12,7 @@
           href="https://www.themealdb.com"
           target="_blank"
           rel="noopener noreferrer"
-          class="underline hover:text-gray-800 dark:hover:text-gray-200 transition"
+          class="underline hover:text-gray-800 transition"
         >
           TheMealDB API
         </a>

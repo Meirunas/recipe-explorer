@@ -39,7 +39,7 @@ export const useMealPreviewStore = defineStore('mealPreview', () => {
       hoveredId.value = null
       meal.value = null
       ingredients.value = []
-    }, 200) // slight delay to allow mouse to move
+    }, 2000) // slight delay to allow mouse to move
   }
 
   function cancelClear() {

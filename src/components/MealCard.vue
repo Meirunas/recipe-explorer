@@ -4,7 +4,7 @@
     <div class="bg-white dark:bg-gray-800 rounded-lg shadow transition overflow-hidden">
       <img :src="meal.strMealThumb" :alt="meal.strMeal" class="w-full h-40 object-cover" />
       <div class="p-4 space-y-2">
-        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">
+        <h3 class="text-lg font-semibold text-gray-800">
           {{ meal.strMeal }}
         </h3>
 

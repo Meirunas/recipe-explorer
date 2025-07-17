@@ -1,16 +1,1 @@
 @import "tailwindcss";
-
-/* Global themes */
-.theme-light header,
-.theme-light footer {
-  color: black;
-  background-color: white;
-}
-
-.theme-dark header,
-.theme-dark footer {
-  color: white;
-  background-color: #1e2939;
-}
-
-

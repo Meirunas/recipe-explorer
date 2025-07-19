@@ -9,7 +9,7 @@
       You haven't added any favourite meals yet.
     </div>
 
-    <div v-else class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+    <div v-else class="flex flex-wrap justify-center gap-6 px-6">
       <MealCard
         v-for="meal in favourites.favourites"
         :key="meal.idMeal"

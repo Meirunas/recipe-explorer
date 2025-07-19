@@ -34,7 +34,7 @@
           @input="onSearch"
           type="text"
           placeholder="Search meals..."
-          class="w-full px-4 py-2 border rounded focus:ring transition "
+          class="w-full px-4 py-2 border rounded focus:ring transition"
         />
       </div>
     </div>
@@ -64,7 +64,9 @@
 
     <!-- Grid + Preview -->
     <div class="relative">
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+      <div
+        class="flex flex-wrap justify-center gap-6 px-6"
+      >
         <MealCard
           v-for="meal in meals"
           :key="meal.idMeal"
@@ -74,8 +76,8 @@
         />
       </div>
       <transition name="fade-slide">
-  <MealHoverDetail v-if="preview.meal" />
-</transition>
+        <MealHoverDetail v-if="preview.meal" />
+      </transition>
     </div>
   </div>
 </template>

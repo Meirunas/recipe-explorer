@@ -17,12 +17,14 @@ Search, filter, and bookmark your favorite recipes in a clean, responsive Vue 3 
 
 ## 🛠️ Tech Stack
 
-- **Vue 3 + Vite**
+- **Vue 3 + Vite** 
 - **Pinia** (state management)
-- **Vue Router**
 - **Tailwind CSS**
-- **Lodash (debounce)**
 - **TheMealDB API**
+- **Vue Router**
+- **LocalStorage**
+- **Axios**
+- **Responsive Design**
 
 ---
 

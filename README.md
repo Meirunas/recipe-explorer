@@ -25,6 +25,7 @@ Search, filter, and bookmark your favorite recipes in a clean, responsive Vue 3 
 - **LocalStorage**
 - **Axios**
 - **Responsive Design**
+- **Vitest**
 
 ---
 

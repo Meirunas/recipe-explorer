@@ -8,8 +8,8 @@ Search, filter, and bookmark your favorite recipes in a clean, responsive Vue 3 
 ## 🚀 Features
 
 - 🔍 **Search meals by name** with debounce optimisation
-- 🗂️ **Filter by category** (e.g. Vegan, Seafood, etc.)
-- ⭐ **Bookmark favorite meals** using Pinia + localStorage
+- 🗂️ **Filter by category**, e.g. Vegan, Seafood
+- ⭐ **Bookmark favorite meals** using Pinia & localStorage
 - ⚡ **Fast & responsive UI** styled with Tailwind CSS
 - 🔄 **Live recipe data** via [TheMealDB API](https://www.themealdb.com/)
 

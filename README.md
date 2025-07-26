@@ -1,11 +1,11 @@
-# 🥗 Recipe Explorer
+# Recipe Explorer
 
 Discover a healthy and delicious meals from around the world.  
 Search, filter, and bookmark your favorite recipes in a clean, responsive Vue 3 app.
 
 ---
 
-## 🚀 Features
+## Features
 
 - **Search meals by name** with debounce optimisation
 - **Filter by category**, e.g. Vegan, Seafood
@@ -15,7 +15,7 @@ Search, filter, and bookmark your favorite recipes in a clean, responsive Vue 3 
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Vue 3 + Vite** 
 - **Pinia** (state management)
@@ -29,13 +29,13 @@ Search, filter, and bookmark your favorite recipes in a clean, responsive Vue 3 
 
 ---
 
-## 📸 Site
+## Site
 
 > [Live Site on Vercel](https://recipe-explorer-app.vercel.app)
 
 ---
 
-## 📦 Project Setup
+## Project Setup
 
 ```bash
 # Install dependencies

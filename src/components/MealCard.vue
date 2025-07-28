@@ -24,9 +24,9 @@
         <button
           @mouseenter="$emit('preview', meal.idMeal)"
           @mouseleave="$emit('leave')"
-          class="bg-green-500 hover:bg-green-600 text-white text-sm font-medium px-3 py-1 rounded transition"
+          class="flex items-center gap-1 bg-green-500 hover:bg-green-600 text-white text-sm font-medium px-3 py-1 rounded transition cursor-pointer hover:scale-105"
         >
-          View more
+           View more
         </button>
 
         <button
